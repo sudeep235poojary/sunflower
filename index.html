@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question For You</title>
+    <title>For you</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -144,7 +144,7 @@
 </head>
 <body>
     <!-- Audio element for background music -->
-    <audio id="background-music" src="guitar-and-flute-song-332373.mp3" loop></audio>
+    <audio id="background-music" src="background-music.mp3" loop></audio>
     <div class="flex flex-col items-center justify-center h-screen p-4 text-center text-white">
         
         <!-- Sunflower graphics -->
@@ -159,7 +159,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-pink-200" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2h2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2h2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
             </svg>
-            <p class="text-xl font-bold tracking-wide">Enter the magic word</p>
+            <p class="text-xl font-bold tracking-wide"></p>
             <input id="unlock-input" type="text" placeholder="Enter code..." class="w-full text-center px-4 py-3 rounded-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
             <!-- Updated unlock button to be transparent dark -->
             <button id="unlockButton" class="w-full px-8 py-3 bg-gray-800 bg-opacity-70 hover:bg-gray-700 text-pink-200 font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
@@ -189,16 +189,18 @@
             const unlockKey = "allufarp";
 
             // The single, static love letter
-            const loveLetter = `My Dearest,
+            const loveLetter = `Prafulla,
+The day I first saw your photo I felt something I couldn't name. When we started talking in chat and I saw how different you were honest, unfiltered, and yourself. I was already drawn in. Face to face, I fell for the way you speak, the maturity in you, and the way you carry yourself. I never imagined we'd come so close. And yet here we are, all because of badminton.
+I still remember asking you out to play. I honestly thought you wouldn't come. When you said yes, I was excited but still shy to talk. After we left the ice cream place that day, something inside me changed. I decided then  I will never let you go. That night I planned a future in my head with you beside me, and that plan has not changed.
+I don't want someone "better." I don't care about perfect. I care about you. I care about the person who makes me smile for no reason, the person who brings me peace, the person I proudly think, “damn  that’s my girl.” You make me happier than I thought possible, and I appreciate every little thing you do.
+If someday we fight and stop talking, please put the ego aside and come back to me. I can't bear losing you. Whatever it is, I will be there with you. I may not always be the most expressive, but my love for you runs deep. Love isn't always loud; sometimes it's choosing each other again and again. I choose you  not once, not twice, but every single time.
+I don't want a new story I want to make our story stronger, more beautiful, and everlasting. I dream of a life with you married one day, building a small family, filling a home with love and laughter, and maybe one car to explore the world together. Chasing sunsets, chasing dreams, growing old slowly while our bond grows only stronger. Every morning I would wake up thankful it's you beside me, and every night I'd fall asleep with peace because I chose you.
+When I think of forever, it's your hand in mine. When I picture home, it's your laughter in the rooms. When I close my eyes, it's your face I see. I love you more than words can neatly arrange, but I promise to show you — in the little things, the steady things, the always there things.
+I know you might think I copied these lines or used ChatGPT to write this. That’s okay. I want you to know the truth these are my feelings. I shared what was in my heart with a tool because I don’t always know how to turn my thoughts into words. Every sentence here - even if shaped by help - carries what I truly feel for you.
 
-From the moment I met you, my world changed. Every day with you is a gift, and I can't imagine my life without you. You are my sunshine, my strength, and my greatest adventure.
-
-I promise to stand by your side through every storm and every triumph. To love you completely, and to cherish you for all of my days.
-
-You are the reason for my smiles and the light in my life. I want to build a future with you, full of laughter, dreams, and endless love.
-
-With all my heart,
-Your partner in everything.`;
+I love you, Prafulla. Always and forever.
+Yours always,
+Sudeep`;
 
             function typeWriter(text, element, container) {
                 let charIndex = 0;
@@ -208,7 +210,7 @@ Your partner in everything.`;
                         charIndex++;
                         // Auto-scroll the container to the bottom as the text is being typed
                         container.scrollTop = container.scrollHeight;
-                        setTimeout(type, 80); // Adjust typing speed here
+                        setTimeout(type, 120); // Adjust typing speed here
                     }
                 }
                 type();
