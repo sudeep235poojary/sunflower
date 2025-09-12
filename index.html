@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE ahtml>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
@@ -17,11 +18,10 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            
-            /* Dark overlay for better text readability */
             position: relative;
         }
 
+        /* Dark overlay for better text readability */
         body::before {
             content: "";
             position: absolute;
@@ -50,13 +50,26 @@
         .sunflower.three { animation-delay: 3s; }
         .sunflower.four { animation-delay: 4s; }
 
-        /* Typing effect */
+        /* Typing effect for the love letter */
         .typing-effect p {
             white-space: pre-wrap;
             overflow: hidden;
-            border-right: 0.15em solid #fefae0; /* The typing cursor */
+            border-right: 0.15em solid #fefae0;
             font-size: 1.5rem;
             max-width: 100%;
+        }
+        
+        /* Styling for the handwritten letter effect */
+        #love-letter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            line-height: 1.5;
+            color: #fefae0;
+            text-align: left;
+            /* Transparent background with a subtle backdrop blur for readability */
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* Safari support */
         }
 
         .typing-cursor {
@@ -111,9 +124,27 @@
             30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
             40%, 60% { transform: translate3d(4px, 0, 0); }
         }
+
+        /* New animation for the love letter container */
+        @keyframes slide-in-up {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-slide-in-up {
+            animation: slide-in-up 1.5s ease-out forwards;
+        }
     </style>
 </head>
 <body>
+    <!-- Audio element for background music -->
+    <audio id="background-music" src="guitar-and-flute-song-332373.mp3" loop></audio>
     <div class="flex flex-col items-center justify-center h-screen p-4 text-center text-white">
         
         <!-- Sunflower graphics -->
@@ -121,35 +152,27 @@
         <div class="sunflower two text-4xl absolute top-[20%] right-[15%]">&#x1F33B;</div>
         <div class="sunflower three text-4xl absolute bottom-[5%] left-[25%]">&#x1F33B;</div>
         <div class="sunflower four text-4xl absolute bottom-[15%] right-[5%]">&#x1F33B;</div>
-        
+
         <!-- Unlock Feature -->
         <div id="unlock-container" class="relative bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-xl w-11/12 sm:w-full max-w-sm mx-auto flex flex-col items-center space-y-4 transition-all duration-1000 ease-in-out">
+            <!-- Updated lock symbol to be transparent dark -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-pink-200" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2h2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2h2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
             </svg>
-            <p class="text-xl font-bold tracking-wide"></p>
+            <p class="text-xl font-bold tracking-wide">Enter the magic word</p>
             <input id="unlock-input" type="text" placeholder="Enter code..." class="w-full text-center px-4 py-3 rounded-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <!-- Updated unlock button to be transparent dark -->
             <button id="unlockButton" class="w-full px-8 py-3 bg-gray-800 bg-opacity-70 hover:bg-gray-700 text-pink-200 font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
                 Unlock
             </button>
         </div>
 
-        <!-- Message Box -->
-        <div id="message-container" class="relative bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-xl w-11/12 sm:w-full max-w-md mx-auto transform scale-0 opacity-0 transition-all duration-1000 ease-in-out">
-            <div id="message" class="text-lg text-gray-200 font-medium whitespace-pre-line typing-effect"></div>
-            <!-- Blinking cursor -->
-            <span id="cursor" class="typing-cursor"></span>
+        <!-- Container for the love letter -->
+        <!-- Added a new class `animate-slide-in-up` to trigger the animation -->
+        <div id="letter-container" class="mt-8 max-w-md mx-auto transform scale-0 opacity-0 transition-all duration-1000 ease-in-out overflow-y-auto max-h-[90vh]">
+            <!-- Removed the gray background from here to make it more transparent -->
+            <div id="love-letter" class="p-8 rounded-2xl shadow-xl text-lg text-gray-200 font-medium"></div>
         </div>
-
-        <!-- Container for the generated poem -->
-        <div id="poem-container" class="mt-8 max-w-md mx-auto transform scale-0 opacity-0 transition-all duration-1000 ease-in-out overflow-y-auto max-h-[50vh]">
-            <div id="poem" class="p-8 bg-gray-800 bg-opacity-70 rounded-2xl shadow-xl text-lg text-gray-200 font-medium"></div>
-        </div>
-
-        <!-- Button to generate the poem -->
-        <button id="generatePoemBtn" class="mt-4 px-8 py-4 bg-gray-800 bg-opacity-70 hover:bg-gray-700 text-pink-200 font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hidden">
-            ✨ Poem for You! ✨
-        </button>
     </div>
 
     <script>
@@ -157,115 +180,56 @@
             const unlockContainer = document.getElementById('unlock-container');
             const unlockInput = document.getElementById('unlock-input');
             const unlockButton = document.getElementById('unlockButton');
-            const messageContainer = document.getElementById('message-container');
-            const messageEl = document.getElementById('message');
-            const cursorEl = document.getElementById('cursor');
-            const generatePoemBtn = document.getElementById('generatePoemBtn');
-            const poemContainer = document.getElementById('poem-container');
-            const poemEl = document.getElementById('poem');
-            
+            const letterContainer = document.getElementById('letter-container');
+            const loveLetterEl = document.getElementById('love-letter');
+            const backgroundMusic = document.getElementById('background-music');
+            backgroundMusic.volume = 0.2; // Set a low volume for the background music
+
             // The secret unlock code
             const unlockKey = "allufarp";
 
-            // Collection of static poems
-            const poems = [
-                "Prafulla, you are the sunrise that awakens my soul, painting my world with colors of hope and joy. Every moment with you feels like a gentle breeze carrying me closer to forever. My heart beats in harmony with yours, creating a melody only love can compose.",
-                
-                "Prafulla, in your eyes I see galaxies, infinite and unending, guiding me through darkness into light. Your smile is the spark that ignites my spirit, and your touch is the calm that quiets every storm inside me. With you, even silence becomes poetry.",
-                
-                "Prafulla, you are the ocean where my soul longs to rest, vast and endless, filled with depth I could spend a lifetime exploring. Each wave of your love washes over me, cleansing every sorrow, leaving behind only peace and eternal devotion.",
-                
-                "Prafulla, you are the dream I never want to wake from, the story I want to keep reading for eternity. In your laughter, I find music; in your embrace, I find home. You are not just part of my life, you are the essence of it.",
-                
-                "Prafulla, your love is the sky that shelters me, the stars that guide me, and the moon that whispers hope on the darkest nights. Every heartbeat of mine is a prayer of gratitude, for in you I have found the forever I always believed in."
-            ];
-            // A list of changing button labels
-            // IMPORTANT: Replace 'YOUR_GIRLFRIENDS_NAME' with her actual name!
-            const buttonLabels = [
-                "Click Here for a poem!",
-                "Click Me, Prafulla!",
-                "Find more magic...",
-                "One more special message!",
-                "Reveal another one"
-            ];
+            // The single, static love letter
+            const loveLetter = `My Dearest,
 
-            let lastPoemIndex = -1;
-            let lastLabelIndex = -1;
+From the moment I met you, my world changed. Every day with you is a gift, and I can't imagine my life without you. You are my sunshine, my strength, and my greatest adventure.
 
-            // The special message
-            const proposalMessage = "Hello beautiful.\n\nFrom the moment I met you, my world changed. Every day with you is a gift, and I can't imagine my life without you.\n\nWill you marry me?";
+I promise to stand by your side through every storm and every triumph. To love you completely, and to cherish you for all of my days.
 
-            let i = 0;
+You are the reason for my smiles and the light in my life. I want to build a future with you, full of laughter, dreams, and endless love.
 
-            function typeWriter() {
-                if (i < proposalMessage.length) {
-                    messageEl.innerHTML += proposalMessage.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 50); // Adjust typing speed here
-                } else {
-                    cursorEl.style.display = 'none'; // Hide cursor after typing is complete
-                    // Show the poem generation button
-                    generatePoemBtn.style.display = 'block';
+With all my heart,
+Your partner in everything.`;
+
+            function typeWriter(text, element) {
+                let charIndex = 0;
+                function type() {
+                    if (charIndex < text.length) {
+                        element.innerHTML += text.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(type, 120); // Adjust typing speed here
+                    }
                 }
+                type();
             }
 
-            function startAnimationSequence() {
-                // Message box appears after a short delay
-                setTimeout(() => {
-                    messageContainer.classList.remove('scale-0', 'opacity-0');
-                    messageContainer.classList.add('scale-100', 'opacity-100');
-                    typeWriter();
-                }, 1000); 
-            }
-
-            function changeButtonLabel() {
-                let newIndex;
-                do {
-                    newIndex = Math.floor(Math.random() * buttonLabels.length);
-                } while (newIndex === lastLabelIndex);
-                lastLabelIndex = newIndex;
-                generatePoemBtn.innerText = buttonLabels[newIndex];
-            }
-
-            function generatePoem() {
-                // Change the button label first
-                changeButtonLabel();
-                
-                // Show loading animation for a moment
-                poemEl.innerHTML = `
-                    <div class="loading-dots">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                    <div class="mt-4 text-center">Finding the perfect words for you...</div>
-                `;
-                generatePoemBtn.disabled = true;
-
-                // Make the poem container visible
-                poemContainer.classList.remove('scale-0', 'opacity-0');
-                poemContainer.classList.add('scale-100', 'opacity-100');
-
-                // Wait a moment, then display a random poem
-                setTimeout(() => {
-                    let randomIndex;
-                    do {
-                        randomIndex = Math.floor(Math.random() * poems.length);
-                    } while (randomIndex === lastPoemIndex);
-                    lastPoemIndex = randomIndex;
-                    
-                    poemEl.innerText = poems[randomIndex];
-                    generatePoemBtn.disabled = false;
-                }, 1500); // Simulated delay for a better user experience
-            }
-            
             unlockButton.addEventListener('click', () => {
                 const enteredCode = unlockInput.value.trim().toLowerCase();
                 if (enteredCode === unlockKey) {
-                    // Correct code: hide the unlock container and start the sequence
+                    // Start playing the background music
+                    backgroundMusic.play().catch(e => console.error("Music playback failed:", e));
+                    
+                    // Correct code: hide the unlock container
                     unlockContainer.classList.add('scale-0', 'opacity-0');
-                    unlockContainer.style.visibility = 'hidden';
-                    startAnimationSequence();
+                    setTimeout(() => {
+                         unlockContainer.style.display = 'none';
+                    }, 1000);
+                    
+                    // Show the love letter container and start typing
+                    setTimeout(() => {
+                        letterContainer.classList.remove('scale-0', 'opacity-0');
+                        letterContainer.classList.add('scale-100', 'opacity-100', 'animate-slide-in-up');
+                        typeWriter(loveLetter, loveLetterEl);
+                    }, 1000);
                 } else {
                     // Incorrect code: shake the container to show an error
                     unlockContainer.classList.add('shake');
@@ -275,8 +239,6 @@
                     }, 500);
                 }
             });
-
-            generatePoemBtn.addEventListener('click', generatePoem);
         });
     </script>
 </body>
