@@ -147,8 +147,8 @@
         </div>
 
         <!-- Button to generate the poem -->
-        <button id="generatePoemBtn" class="mt-4 px-8 py-4 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hidden">
-            ✨ Generate a Proposal Poem
+        <button id="generatePoemBtn" class="mt-4 px-8 py-4 bg-gray-800 bg-opacity-70 hover:bg-gray-700 text-pink-200 font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hidden">
+            ✨ Poem for You! ✨
         </button>
     </div>
 
@@ -169,17 +169,28 @@
 
             // Collection of static poems
             const poems = [
-              "Prafulla, you are the sunrise that awakens my soul, painting my world with colors of hope and joy. Every moment with you feels like a gentle breeze carrying me closer to forever. My heart beats in harmony with yours, creating a melody only love can compose.",
-        
-              "Prafulla, in your eyes I see galaxies, infinite and unending, guiding me through darkness into light. Your smile is the spark that ignites my spirit, and your touch is the calm that quiets every storm inside me. With you, even silence becomes poetry.",
-              
-              "Prafulla, you are the ocean where my soul longs to rest, vast and endless, filled with depth I could spend a lifetime exploring. Each wave of your love washes over me, cleansing every sorrow, leaving behind only peace and eternal devotion.",
-              
-              "Prafulla, you are the dream I never want to wake from, the story I want to keep reading for eternity. In your laughter, I find music; in your embrace, I find home. You are not just part of my life, you are the essence of it.",
-              
-              "Prafulla, your love is the sky that shelters me, the stars that guide me, and the moon that whispers hope on the darkest nights. Every heartbeat of mine is a prayer of gratitude, for in you I have found the forever I always believed in."
-          ];
+                "Prafulla, you are the sunrise that awakens my soul, painting my world with colors of hope and joy. Every moment with you feels like a gentle breeze carrying me closer to forever. My heart beats in harmony with yours, creating a melody only love can compose.",
+                
+                "Prafulla, in your eyes I see galaxies, infinite and unending, guiding me through darkness into light. Your smile is the spark that ignites my spirit, and your touch is the calm that quiets every storm inside me. With you, even silence becomes poetry.",
+                
+                "Prafulla, you are the ocean where my soul longs to rest, vast and endless, filled with depth I could spend a lifetime exploring. Each wave of your love washes over me, cleansing every sorrow, leaving behind only peace and eternal devotion.",
+                
+                "Prafulla, you are the dream I never want to wake from, the story I want to keep reading for eternity. In your laughter, I find music; in your embrace, I find home. You are not just part of my life, you are the essence of it.",
+                
+                "Prafulla, your love is the sky that shelters me, the stars that guide me, and the moon that whispers hope on the darkest nights. Every heartbeat of mine is a prayer of gratitude, for in you I have found the forever I always believed in."
+            ];
+            // A list of changing button labels
+            // IMPORTANT: Replace 'YOUR_GIRLFRIENDS_NAME' with her actual name!
+            const buttonLabels = [
+                "Click Here for a poem!",
+                "Click Me, Prafulla!",
+                "Find more magic...",
+                "One more special message!",
+                "Reveal another one"
+            ];
 
+            let lastPoemIndex = -1;
+            let lastLabelIndex = -1;
 
             // The special message
             const proposalMessage = "Hello beautiful.\n\nFrom the moment I met you, my world changed. Every day with you is a gift, and I can't imagine my life without you.\n\nWill you marry me?";
@@ -207,7 +218,19 @@
                 }, 1000); 
             }
 
+            function changeButtonLabel() {
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * buttonLabels.length);
+                } while (newIndex === lastLabelIndex);
+                lastLabelIndex = newIndex;
+                generatePoemBtn.innerText = buttonLabels[newIndex];
+            }
+
             function generatePoem() {
+                // Change the button label first
+                changeButtonLabel();
+                
                 // Show loading animation for a moment
                 poemEl.innerHTML = `
                     <div class="loading-dots">
@@ -225,7 +248,12 @@
 
                 // Wait a moment, then display a random poem
                 setTimeout(() => {
-                    const randomIndex = Math.floor(Math.random() * poems.length);
+                    let randomIndex;
+                    do {
+                        randomIndex = Math.floor(Math.random() * poems.length);
+                    } while (randomIndex === lastPoemIndex);
+                    lastPoemIndex = randomIndex;
+                    
                     poemEl.innerText = poems[randomIndex];
                     generatePoemBtn.disabled = false;
                 }, 1500); // Simulated delay for a better user experience
