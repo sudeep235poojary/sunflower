@@ -167,6 +167,20 @@
             // The secret unlock code
             const unlockKey = "allufarp";
 
+            // Collection of static poems
+            const poems = [
+              "Prafulla, you are the sunrise that awakens my soul, painting my world with colors of hope and joy. Every moment with you feels like a gentle breeze carrying me closer to forever. My heart beats in harmony with yours, creating a melody only love can compose.",
+        
+              "Prafulla, in your eyes I see galaxies, infinite and unending, guiding me through darkness into light. Your smile is the spark that ignites my spirit, and your touch is the calm that quiets every storm inside me. With you, even silence becomes poetry.",
+              
+              "Prafulla, you are the ocean where my soul longs to rest, vast and endless, filled with depth I could spend a lifetime exploring. Each wave of your love washes over me, cleansing every sorrow, leaving behind only peace and eternal devotion.",
+              
+              "Prafulla, you are the dream I never want to wake from, the story I want to keep reading for eternity. In your laughter, I find music; in your embrace, I find home. You are not just part of my life, you are the essence of it.",
+              
+              "Prafulla, your love is the sky that shelters me, the stars that guide me, and the moon that whispers hope on the darkest nights. Every heartbeat of mine is a prayer of gratitude, for in you I have found the forever I always believed in."
+          ];
+
+
             // The special message
             const proposalMessage = "Hello beautiful.\n\nFrom the moment I met you, my world changed. Every day with you is a gift, and I can't imagine my life without you.\n\nWill you marry me?";
 
@@ -193,15 +207,15 @@
                 }, 1000); 
             }
 
-            async function generatePoem() {
-                // Show loading animation and message
+            function generatePoem() {
+                // Show loading animation for a moment
                 poemEl.innerHTML = `
                     <div class="loading-dots">
                         <div class="dot"></div>
                         <div class="dot"></div>
                         <div class="dot"></div>
                     </div>
-                    <div class="mt-4 text-center">Generating a beautiful poem for you...</div>
+                    <div class="mt-4 text-center">Finding the perfect words for you...</div>
                 `;
                 generatePoemBtn.disabled = true;
 
@@ -209,41 +223,12 @@
                 poemContainer.classList.remove('scale-0', 'opacity-0');
                 poemContainer.classList.add('scale-100', 'opacity-100');
 
-                // Call the Gemini API to generate the poem
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=`;
-                const payload = {
-                    contents: [{ parts: [{ text: "Write a short, simple, beautiful poem about love and marriage, as if for a marriage proposal." }] }],
-                    systemInstruction: {
-                        parts: [{ text: "You are a romantic poet. Write a short, simple, beautiful poem about love and marriage, as if for a marriage proposal." }]
-                    },
-                };
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`API error: ${response.statusText}`);
-                    }
-
-                    const result = await response.json();
-                    const poemText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-                    
-                    if (poemText) {
-                        poemEl.innerText = poemText;
-                    } else {
-                        poemEl.innerText = "Sorry, I couldn't generate a poem right now. Please try again.";
-                    }
-                    
-                } catch (error) {
-                    console.error("Failed to generate poem:", error);
-                    poemEl.innerText = "Error generating poem. Please try again later.";
-                } finally {
+                // Wait a moment, then display a random poem
+                setTimeout(() => {
+                    const randomIndex = Math.floor(Math.random() * poems.length);
+                    poemEl.innerText = poems[randomIndex];
                     generatePoemBtn.disabled = false;
-                }
+                }, 1500); // Simulated delay for a better user experience
             }
             
             unlockButton.addEventListener('click', () => {
