@@ -1,384 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sunflower</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100vw;
-      overflow: hidden;
-    }
-    body {
-      background: radial-gradient(ellipse at 50% 30%, #252c39 0%, #0b0b12 100%);
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      touch-action: pan-x pan-y;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question For You</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-    .sunflower-container {
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      width: min(58vw, 58vh);
-      max-width: 450px;
-      max-height: 450px;
-      min-width: 200px;
-      min-height: 200px;
-      aspect-ratio: 1/1;
-      pointer-events: none;
-    }
-    .sunflower-svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-    .petal {
-      transform-origin: 250px 250px;
-      animation: petal-sway 2.7s ease-in-out infinite alternate;
-    }
-    .petal:nth-child(1) { animation-delay: 0s; }
-    .petal:nth-child(2) { animation-delay: 0.15s; }
-    .petal:nth-child(3) { animation-delay: 0.3s; }
-    .petal:nth-child(4) { animation-delay: 0.45s; }
-    .petal:nth-child(5) { animation-delay: 0.6s; }
-    .petal:nth-child(6) { animation-delay: 0.75s; }
-    .petal:nth-child(7) { animation-delay: 0.9s; }
-    .petal:nth-child(8) { animation-delay: 1.05s; }
-    .petal:nth-child(9) { animation-delay: 1.2s; }
-    .petal:nth-child(10) { animation-delay: 1.35s; }
-    .petal:nth-child(11) { animation-delay: 1.5s; }
-    .petal:nth-child(12) { animation-delay: 1.65s; }
-    .petal:nth-child(13) { animation-delay: 1.8s; }
-    .petal:nth-child(14) { animation-delay: 1.95s; }
-    .petal:nth-child(15) { animation-delay: 2.1s; }
-    .petal:nth-child(16) { animation-delay: 2.25s; }
-    .petal:nth-child(17) { animation-delay: 2.4s; }
-    .petal:nth-child(18) { animation-delay: 2.55s; }
-    .petal:nth-child(19) { animation-delay: 2.7s; }
-    .petal:nth-child(20) { animation-delay: 2.85s; }
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            /* Full-page GIF background */
+            background-image: url('bck.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* Dark overlay for better text readability */
+            position: relative;
+        }
 
-    @keyframes petal-sway {
-      0% { transform: rotate(var(--angle,0deg)) scaleY(1); }
-      100% { transform: rotate(calc(var(--angle,0deg) + var(--sway,8deg))) scaleY(1.10); }
-    }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            z-index: -1;
+        }
 
-    .butterfly {
-      position: absolute;
-      width: 48px;
-      height: 38px;
-      z-index: 3;
-      will-change: transform;
-      pointer-events: none;
-    }
-    @media (max-width: 600px) {
-      .butterfly {
-        width: 28px;
-        height: 22px;
-      }
-    }
+        /* Sunflower graphics animation */
+        .sunflower {
+            animation: growAndFloat 10s ease-in-out infinite alternate;
+            opacity: 0;
+        }
 
-    .bee {
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      z-index: 4;
-      will-change: transform;
-      pointer-events: none;
-    }
-    @media (max-width: 600px) {
-      .bee {
-        width: 15px;
-        height: 15px;
-      }
-    }
-  </style>
+        @keyframes growAndFloat {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        
+        .sunflower.one { animation-delay: 1s; }
+        .sunflower.two { animation-delay: 2s; }
+        .sunflower.three { animation-delay: 3s; }
+        .sunflower.four { animation-delay: 4s; }
+
+        /* Typing effect */
+        .typing-effect p {
+            white-space: pre-wrap;
+            overflow: hidden;
+            border-right: 0.15em solid #fefae0; /* The typing cursor */
+            font-size: 1.5rem;
+            max-width: 100%;
+        }
+
+        .typing-cursor {
+            animation: blink-caret 0.75s step-end infinite;
+            border-right: 2px solid;
+            color: #fefae0;
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #fefae0 }
+        }
+
+        /* Loading animation */
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
+            background-color: #fefae0;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        .dot:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Incorrect password animation */
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            transform: translate3d(0, 0, 0);
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
 </head>
 <body>
-  <div class="sunflower-container">
-    <svg class="sunflower-svg" viewBox="0 0 500 500">
-      <g>
-        <defs>
-          <radialGradient id="petalGrad" cx="50%" cy="60%" r="80%">
-            <stop offset="0%" stop-color="#fff89e"/>
-            <stop offset="60%" stop-color="#ffe066"/>
-            <stop offset="100%" stop-color="#e6b70a"/>
-          </radialGradient>
-          <radialGradient id="centerGrad" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stop-color="#6d3a05"/>
-            <stop offset="80%" stop-color="#4c2500"/>
-            <stop offset="100%" stop-color="#2a1802"/>
-          </radialGradient>
-        </defs>
-        <g id="petal-group"></g>
-        <circle cx="250" cy="250" r="70" fill="url(#centerGrad)" stroke="#9e6b16" stroke-width="13"/>
-        <g>
-          <g id="seed-group"></g>
-        </g>
-      </g>
-    </svg>
-  </div>
+    <div class="flex flex-col items-center justify-center h-screen p-4 text-center text-white">
+        
+        <!-- Sunflower graphics -->
+        <div class="sunflower one text-4xl absolute top-[10%] left-[5%]">&#x1F33B;</div>
+        <div class="sunflower two text-4xl absolute top-[20%] right-[15%]">&#x1F33B;</div>
+        <div class="sunflower three text-4xl absolute bottom-[5%] left-[25%]">&#x1F33B;</div>
+        <div class="sunflower four text-4xl absolute bottom-[15%] right-[5%]">&#x1F33B;</div>
+        
+        <!-- Unlock Feature -->
+        <div id="unlock-container" class="relative bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-xl w-11/12 sm:w-full max-w-sm mx-auto flex flex-col items-center space-y-4 transition-all duration-1000 ease-in-out">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-pink-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2h2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2h2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-xl font-bold tracking-wide">Enter the magic word</p>
+            <input id="unlock-input" type="text" placeholder="Enter code..." class="w-full text-center px-4 py-3 rounded-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <button id="unlockButton" class="w-full px-8 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+                Unlock
+            </button>
+        </div>
 
-  <script>
-    // Sunflower petals
-    const petalGroup = document.getElementById('petal-group');
-    const numPetals = 20;
-    for (let i = 0; i < numPetals; i++) {
-      let path =
-        'M250,250 ' +
-        'C' + (250-36) + ',' + (250-65) + ' ' + (250-18) + ',' + (250-155) + ' 250,115 ' +
-        'C' + (250+18) + ',' + (250-155) + ' ' + (250+36) + ',' + (250-65) + ' 250,250 Z';
-      let petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      petal.setAttribute('class','petal');
-      petal.setAttribute('d', path);
-      petal.setAttribute('fill','url(#petalGrad)');
-      petal.setAttribute('stroke','#e6b70a');
-      petal.setAttribute('stroke-width','2');
-      petal.style.setProperty('--angle', (i*18)+'deg');
-      petal.style.setProperty('--sway', (i%2==0?7:-7)+'deg');
-      petalGroup.appendChild(petal);
-      petal.setAttribute('transform', 'rotate('+(i*18)+' 250 250)');
-    }
+        <!-- Message Box -->
+        <div id="message-container" class="relative bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-xl w-11/12 sm:w-full max-w-md mx-auto transform scale-0 opacity-0 transition-all duration-1000 ease-in-out">
+            <div id="message" class="text-lg text-gray-200 font-medium whitespace-pre-line typing-effect"></div>
+            <!-- Blinking cursor -->
+            <span id="cursor" class="typing-cursor"></span>
+        </div>
 
-    // Sunflower seeds
-    const seedGroup = document.getElementById('seed-group');
-    const numSeeds = 65;
-    for(let i=0;i<numSeeds;i++) {
-      const angle = i * 137.5 * Math.PI/180;
-      const radius = 3 + Math.sqrt(i) * 22;
-      const x = 250 + Math.cos(angle)*radius;
-      const y = 250 + Math.sin(angle)*radius;
-      const sz = 5 + Math.random()*3;
-      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      c.setAttribute('cx',x);
-      c.setAttribute('cy',y);
-      c.setAttribute('r',sz/2.2);
-      c.setAttribute('fill','#f6c563');
-      c.setAttribute('opacity','0.85');
-      seedGroup.appendChild(c);
-    }
+        <!-- Container for the generated poem -->
+        <div id="poem-container" class="mt-8 max-w-md mx-auto transform scale-0 opacity-0 transition-all duration-1000 ease-in-out">
+            <div id="poem" class="p-8 bg-gray-800 bg-opacity-70 rounded-2xl shadow-xl text-lg text-gray-200 font-medium"></div>
+        </div>
 
-    // Butterfly SVG
-    function getButterflySVG(color1, color2) {
-      return `
-      <svg width="100%" height="100%" viewBox="0 0 48 38" xmlns="http://www.w3.org/2000/svg">
-        <g>
-          <ellipse cx="12" cy="19" rx="12" ry="17" fill="${color1}" opacity="0.93"/>
-          <ellipse cx="36" cy="19" rx="12" ry="17" fill="${color2}" opacity="0.93"/>
-          <ellipse cx="24" cy="19" rx="4.2" ry="12" fill="#222"/>
-          <ellipse cx="24" cy="11" rx="1.3" ry="3.5" fill="#222"/>
-          <ellipse cx="24" cy="26" rx="1.1" ry="2.7" fill="#222"/>
-          <path d="M23,10 Q20,4 16,10" stroke="#222" stroke-width="1.6" fill="none"/>
-          <path d="M25,10 Q28,4 32,10" stroke="#222" stroke-width="1.6" fill="none"/>
-        </g>
-      </svg>
-      `;
-    }
-    // Bee SVG
-    function getBeeSVG() {
-      return `
-      <svg width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="12" cy="12" rx="8" ry="6" fill="#fff600" stroke="#222" stroke-width="1.2"/>
-        <ellipse cx="8" cy="12" rx="3" ry="2.5" fill="#fff" opacity="0.8"/>
-        <ellipse cx="16" cy="12" rx="3" ry="2.5" fill="#fff" opacity="0.8"/>
-        <rect x="7" y="10" width="10" height="4" rx="2" fill="none" stroke="#222" stroke-width="1"/>
-        <ellipse cx="12" cy="7.5" rx="2" ry="1.5" fill="#222"/>
-        <ellipse cx="12" cy="16.5" rx="1.2" ry="0.8" fill="#222"/>
-        <rect x="9" y="10" width="1.2" height="4" fill="#222" />
-        <rect x="11" y="10" width="1.2" height="4" fill="#222" />
-        <rect x="13" y="10" width="1.2" height="4" fill="#222" />
-        <rect x="15" y="10" width="1.2" height="4" fill="#222" />
-        <path d="M12 7 Q14 3 15 7" stroke="#222" stroke-width="1.1" fill="none"/>
-        <path d="M12 7 Q10 3 9 7" stroke="#222" stroke-width="1.1" fill="none"/>
-      </svg>
-      `;
-    }
+        <!-- Button to generate the poem -->
+        <button id="generatePoemBtn" class="mt-4 px-8 py-4 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hidden">
+            ✨ Generate a Proposal Poem
+        </button>
+    </div>
 
-    // Butterfly and bee colors
-    const butterflyColors = [
-      ["#ffb3ed","#b2faff"],
-      ["#b3ffb3","#ffe4b3"],
-      ["#ffd27f","#ffb3b3"],
-      ["#a3caff","#ffb3ff"],
-      ["#f2ffb3","#b3ffa6"]
-    ];
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const unlockContainer = document.getElementById('unlock-container');
+            const unlockInput = document.getElementById('unlock-input');
+            const unlockButton = document.getElementById('unlockButton');
+            const messageContainer = document.getElementById('message-container');
+            const messageEl = document.getElementById('message');
+            const cursorEl = document.getElementById('cursor');
+            const generatePoemBtn = document.getElementById('generatePoemBtn');
+            const poemContainer = document.getElementById('poem-container');
+            const poemEl = document.getElementById('poem');
+            
+            // The secret unlock code
+            const unlockKey = "allufarp";
 
-    // Responsive counts
-    function getButterflyCount() {
-      const w = window.innerWidth;
-      return w < 600 ? 3 : 7;
-    }
-    function getBeeCount() {
-      const w = window.innerWidth;
-      return w < 600 ? 2 : 5;
-    }
+            // The special message
+            const proposalMessage = "Hello beautiful.\n\nFrom the moment I met you, my world changed. Every day with you is a gift, and I can't imagine my life without you.\n\nWill you marry me?";
 
-    // Sunflower center coordinates
-    let sunflowerRect = null;
-    function updateSunflowerRect() {
-      const sun = document.querySelector('.sunflower-container');
-      const rect = sun.getBoundingClientRect();
-      sunflowerRect = {
-        cx: rect.left + rect.width/2,
-        cy: rect.top + rect.height/2,
-        radius: rect.width/2.2
-      };
-    }
+            let i = 0;
 
-    // Butterflies and bees state
-    const butterflies = [];
-    const bees = [];
+            function typeWriter() {
+                if (i < proposalMessage.length) {
+                    messageEl.innerHTML += proposalMessage.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50); // Adjust typing speed here
+                } else {
+                    cursorEl.style.display = 'none'; // Hide cursor after typing is complete
+                    // Show the poem generation button
+                    generatePoemBtn.style.display = 'block';
+                }
+            }
 
-    function createButterfly(i) {
-      const b = document.createElement('div');
-      b.className = 'butterfly';
-      let cols = butterflyColors[i % butterflyColors.length];
-      b.innerHTML = getButterflySVG(cols[0], cols[1]);
-      document.body.appendChild(b);
+            function startAnimationSequence() {
+                // Message box appears after a short delay
+                setTimeout(() => {
+                    messageContainer.classList.remove('scale-0', 'opacity-0');
+                    messageContainer.classList.add('scale-100', 'opacity-100');
+                    typeWriter();
+                }, 1000); 
+            }
 
-      butterflies.push({
-        el: b,
-        orbitR: (sunflowerRect?.radius || 120) + 40 + Math.random() * 30, // Reduced orbit radius
-        orbitA: Math.random() * 2 * Math.PI,
-        orbitSpeed: 0.13 + Math.random() * 0.09,
-        scale: (window.innerWidth < 600 ? 0.65 : 1) * (0.8 + Math.random() * 0.4),
-        flutter: Math.random() * 3,
-        t: Math.random() * 1000,
-        isFluttering: false,
-        flutterT: 0,
-        fx: 0,
-        fy: 0,
-        lastOrbitX: 0,
-        lastOrbitY: 0
-      });
-    }
+            async function generatePoem() {
+                // Show loading animation and message
+                poemEl.innerHTML = `
+                    <div class="loading-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="mt-4 text-center">Generating a beautiful poem for you...</div>
+                `;
+                generatePoemBtn.disabled = true;
 
-    function createBee(i) {
-      const bee = document.createElement('div');
-      bee.className = 'bee';
-      bee.innerHTML = getBeeSVG();
-      document.body.appendChild(bee);
-      bees.push({
-        el: bee,
-        orbitR: (sunflowerRect?.radius || 120) * 0.6 + Math.random() * 15, // Reduced orbit radius
-        orbitA: Math.random() * 2 * Math.PI,
-        orbitSpeed: 0.19 + Math.random() * 0.09,
-        scale: (window.innerWidth < 600 ? 0.7 : 1) * (0.85 + Math.random() * 0.23),
-        vertical: Math.random() * 0.8 + 0.4,
-        t: Math.random() * 1000
-      });
-    }
+                // Make the poem container visible
+                poemContainer.classList.remove('scale-0', 'opacity-0');
+                poemContainer.classList.add('scale-100', 'opacity-100');
 
-    function clearAnimDivs(cls) {
-      document.querySelectorAll('.'+cls).forEach(el=>el.remove());
-    }
+                // Call the Gemini API to generate the poem
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=`;
+                const payload = {
+                    contents: [{ parts: [{ text: "Write a short, simple, beautiful poem about love and marriage, as if for a marriage proposal." }] }],
+                    systemInstruction: {
+                        parts: [{ text: "You are a romantic poet. Write a short, simple, beautiful poem about love and marriage, as if for a marriage proposal." }]
+                    },
+                };
 
-    function setupScene() {
-      updateSunflowerRect();
-      clearAnimDivs('butterfly');
-      clearAnimDivs('bee');
-      butterflies.length = 0;
-      bees.length = 0;
-      for(let i=0;i<getButterflyCount();i++) createButterfly(i);
-      for(let i=0;i<getBeeCount();i++) createBee(i);
-    }
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
 
-    // Butterfly fly logic: elliptic orbits with flutter
-    function moveButterflies(dt) {
-      butterflies.forEach((b, i) => {
-        b.t += dt * 0.5;
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.statusText}`);
+                    }
 
-        // Flutter event: randomly, butterfly flies out and returns
-        if (!b.isFluttering && Math.random() < 0.0008) {
-          b.isFluttering = true;
-          b.flutterT = 0;
-          // Flutter target: random point near the sunflower
-          const offset = sunflowerRect.radius * 0.8; // Keep fluttering near the sunflower
-          b.fx = sunflowerRect.cx + (Math.random() - 0.5) * offset;
-          b.fy = sunflowerRect.cy + (Math.random() - 0.5) * offset;
-          // Store last orbit position for return
-          b.lastOrbitX = sunflowerRect.cx + b.orbitR * Math.cos(b.orbitA);
-          b.lastOrbitY = sunflowerRect.cy + b.orbitR * Math.sin(b.orbitA);
-        }
+                    const result = await response.json();
+                    const poemText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (poemText) {
+                        poemEl.innerText = poemText;
+                    } else {
+                        poemEl.innerText = "Sorry, I couldn't generate a poem right now. Please try again.";
+                    }
+                    
+                } catch (error) {
+                    console.error("Failed to generate poem:", error);
+                    poemEl.innerText = "Error generating poem. Please try again later.";
+                } finally {
+                    generatePoemBtn.disabled = false;
+                }
+            }
+            
+            unlockButton.addEventListener('click', () => {
+                const enteredCode = unlockInput.value.trim().toLowerCase();
+                if (enteredCode === unlockKey) {
+                    // Correct code: hide the unlock container and start the sequence
+                    unlockContainer.classList.add('scale-0', 'opacity-0');
+                    unlockContainer.style.visibility = 'hidden';
+                    startAnimationSequence();
+                } else {
+                    // Incorrect code: shake the container to show an error
+                    unlockContainer.classList.add('shake');
+                    setTimeout(() => {
+                        unlockContainer.classList.remove('shake');
+                        unlockInput.value = '';
+                    }, 500);
+                }
+            });
 
-        if (b.isFluttering) {
-          b.flutterT += dt;
-          let progress;
-          if (b.flutterT < 1000) {
-            // Outward
-            progress = b.flutterT / 1000;
-            b.x = b.lastOrbitX + (b.fx - b.lastOrbitX) * progress;
-            b.y = b.lastOrbitY + (b.fy - b.lastOrbitY) * progress;
-          } else if (b.flutterT < 2000) {
-            // Return
-            progress = (b.flutterT - 1000) / 1000;
-            b.x = b.fx + (b.lastOrbitX - b.fx) * progress;
-            b.y = b.fy + (b.lastOrbitY - b.fy) * progress;
-          } else {
-            b.isFluttering = false;
-          }
-        }
-
-        if (!b.isFluttering) {
-          // Elliptic orbit around sunflower
-          b.orbitA += b.orbitSpeed * dt * 0.0005 * (window.innerWidth < 600 ? 0.85 : 1);
-          let orbitR = b.orbitR * 0.8 + Math.sin(b.t * 0.008 + i) * 16; // Reduced orbit radius
-          let orbitX = sunflowerRect.cx + orbitR * Math.cos(b.orbitA);
-          let orbitY = sunflowerRect.cy + orbitR * Math.sin(b.orbitA) + Math.sin(b.t * 0.015 + i) * 9;
-          b.x = orbitX;
-          b.y = orbitY;
-        }
-
-        // Angle: face in direction of motion
-        let ang = (b.isFluttering
-          ? Math.atan2(b.y - sunflowerRect.cy, b.x - sunflowerRect.cx)
-          : b.orbitA) * 180 / Math.PI + Math.sin(b.t * 0.13) * 18;
-
-        // Wing flutter
-        const wingFlutter = 0.94 + Math.sin(b.t * 0.22) * 0.13;
-        b.el.style.transform = `translate(${b.x}px,${b.y}px) scale(${b.scale},${b.scale * wingFlutter}) rotate(${ang}deg)`;
-      });
-    }
-
-    // Bees buzz tightly around the center
-    function moveBees(dt) {
-      bees.forEach((bee, i) => {
-        bee.t += dt * 0.7;
-        bee.orbitA += bee.orbitSpeed * dt * 0.001 * (window.innerWidth < 600 ? 0.85 : 1);
-        let r = bee.orbitR * 0.8 + Math.sin(bee.t * 0.014 + i) * 8; // Reduced orbit radius
-        let bx = sunflowerRect.cx + r * Math.cos(bee.orbitA);
-        let by = sunflowerRect.cy + r * Math.sin(bee.orbitA) + Math.sin(bee.t * bee.vertical) * 6;
-        let ang = bee.orbitA * 180 / Math.PI + 90;
-        let wingFlutter = 0.95 + Math.sin(bee.t * 0.33) * 0.11;
-        bee.el.style.transform = `translate(${bx}px,${by}px) scale(${bee.scale},${bee.scale * wingFlutter}) rotate(${ang}deg)`;
-      });
-    }
-
-    window.addEventListener('resize', ()=>{
-      setupScene();
-    });
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-      setupScene();
-      animate();
-    });
-
-    let prevTime = performance.now();
-    function animate(now) {
-      const dt = now - prevTime;
-      prevTime = now;
-      moveButterflies(dt);
-      moveBees(dt);
-      requestAnimationFrame(animate);
-    }
-  </script>
+            generatePoemBtn.addEventListener('click', generatePoem);
+        });
+    </script>
 </body>
 </html>
