@@ -127,7 +127,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-pink-400" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2h2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2h2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
             </svg>
-            <p class="text-xl font-bold tracking-wide">Enter the magic word</p>
+            <p class="text-xl font-bold tracking-wide"></p>
             <input id="unlock-input" type="text" placeholder="Enter code..." class="w-full text-center px-4 py-3 rounded-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
             <button id="unlockButton" class="w-full px-8 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
                 Unlock
@@ -142,7 +142,7 @@
         </div>
 
         <!-- Container for the generated poem -->
-        <div id="poem-container" class="mt-8 max-w-md mx-auto transform scale-0 opacity-0 transition-all duration-1000 ease-in-out">
+        <div id="poem-container" class="mt-8 max-w-md mx-auto transform scale-0 opacity-0 transition-all duration-1000 ease-in-out overflow-y-auto max-h-[50vh]">
             <div id="poem" class="p-8 bg-gray-800 bg-opacity-70 rounded-2xl shadow-xl text-lg text-gray-200 font-medium"></div>
         </div>
 
