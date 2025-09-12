@@ -200,13 +200,15 @@ You are the reason for my smiles and the light in my life. I want to build a fut
 With all my heart,
 Your partner in everything.`;
 
-            function typeWriter(text, element) {
+            function typeWriter(text, element, container) {
                 let charIndex = 0;
                 function type() {
                     if (charIndex < text.length) {
                         element.innerHTML += text.charAt(charIndex);
                         charIndex++;
-                        setTimeout(type, 120); // Adjust typing speed here
+                        // Auto-scroll the container to the bottom as the text is being typed
+                        container.scrollTop = container.scrollHeight;
+                        setTimeout(type, 80); // Adjust typing speed here
                     }
                 }
                 type();
@@ -228,7 +230,7 @@ Your partner in everything.`;
                     setTimeout(() => {
                         letterContainer.classList.remove('scale-0', 'opacity-0');
                         letterContainer.classList.add('scale-100', 'opacity-100', 'animate-slide-in-up');
-                        typeWriter(loveLetter, loveLetterEl);
+                        typeWriter(loveLetter, loveLetterEl, letterContainer);
                     }, 1000);
                 } else {
                     // Incorrect code: shake the container to show an error
